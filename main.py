@@ -1,4 +1,4 @@
-# I will create an encryption and decreption using the Caesar Cipher
+# I will create an encryption and decryption using the Caesar Cipher
 # Caesar Cipher video used to learn: https://www.youtube.com/watch?v=LVHeW1hcdRk
 
 # Encrypting using any number of shifts - Complete :]
