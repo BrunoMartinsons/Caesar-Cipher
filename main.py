@@ -2,18 +2,30 @@
 # Caesar Cipher video used to learn: https://www.youtube.com/watch?v=LVHeW1hcdRk
 
 # Encrypting using any number of shifts - Complete :]
-# Decrypting using any number of shifts - Not started
+# Decrypting using any number of shifts - Complete :]
 # Enable user to enter their own alphabet and symbols for use when shifting - Not started
+# Turn the encrypt and decrypt into one function (encrypt_and_decrypt) - not started
+# User input verification - not started
 
 alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
 
 def main():
-    shift = int(input("How many shifts do you want? "))
-    sentence = input("What sentence do you want to encrypt? ").lower()
-    shifted_alphabet = shifting(shift)
-    encrypted_word = encrypt(sentence, shifted_alphabet)
-    print(encrypted_word)
-
+    user_choice = input("Would you like to (encrypt) or (decrypt?) a sentence?")
+    if user_choice.lower() == "encrypt":
+        shift = int(input("How many shifts do you want? "))
+        sentence = input("What sentence do you want to encrypt? ").lower()
+        shifted_alphabet = shifting(shift)
+        encrypted_word = encrypt(sentence, shifted_alphabet)
+        print(encrypted_word)
+        input("\nPress enter to close the program")
+    elif user_choice.lower() == "decrypt":
+        shift = int(input("How many shifts is the encrypted message? "))
+        sentence = input("What sentence do you want to decrypt? ").lower()
+        shifted_alphabet = shifting(shift)
+        decrypted_word = decrypt(sentence, shifted_alphabet)
+        print(decrypted_word)
+        input("\nPress enter to close the program")
+        
 
 def shifting(shift):
     """Shifts the alphabet by the given number"""
@@ -44,6 +56,26 @@ def encrypt(sentence, shifted_alphabet):
 
     encrypted_word = "".join(encrypted_word)
     return encrypted_word
+
+
+def decrypt(sentence, shifted_alphabet):
+    """Decrypts the sentence using the shifted alphabet"""
+    decrypted_word = []
+
+    for char in sentence:
+        char_exist = False  # Is char in the shifted_alphabet?
+        for letter in shifted_alphabet:
+            if char == letter:
+                char_exist = True
+                index = shifted_alphabet.index(letter)
+                decrypted_word.append(alphabet[index])
+            else:
+                # If letter is last in shifted_alphabet and char from sentence not in shifted_alphabet append the char.
+                if shifted_alphabet.index(letter) == 25 and char_exist == False:
+                    decrypted_word.append(char)
+
+    decrypted_word = "".join(decrypted_word)
+    return decrypted_word
 
 
 main()
