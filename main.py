@@ -78,4 +78,54 @@ def decrypt(sentence, shifted_alphabet):
     return decrypted_word
 
 
-main()
+#main()
+
+"""-----------------------------------------------------------"""
+# The above method is the long way to do it
+# Now I will use the ord() and chr() methods (ascii).
+# ord("A") = 65, chr(65) = "A"
+
+def simple_main():
+    user_choice = input("Would you like to (encrypt) or (decrypt?) a sentence?")
+    if user_choice.lower() == "encrypt":
+        shift = int(input("How many shifts do you want? "))
+        sentence = input("What sentence do you want to encrypt? ")
+        encrypted_sentence = simple_encrypt(sentence, shift)
+        print(encrypted_sentence)
+        input("\nPress enter to close the program")
+    elif user_choice.lower() == "decrypt":
+        shift = int(input("How many shifts is the encrypted message? "))
+        sentence = input("What sentence do you want to decrypt? ")
+        decrypted_sentence = simple_decrypt(sentence, shift)
+        print(decrypted_sentence)
+        input("\nPress enter to close the program")
+        
+
+def simple_encrypt(sentence, shift):
+    """Encrypts the sentence using the shift"""
+    encrypted_sentence = ""
+    for char in sentence:
+        if char.isalpha() == False:  # If char is not a letter
+            encrypted_sentence += char
+
+        elif char.isupper() == True:
+            # if shift + char number > 90 need to make it loop back to start from 65
+            pass
+
+        elif char.islower() == True:
+            # if shift + char number > 90 need to make it loop back to start from 65
+            pass
+            
+        else:
+            encrypted_sentence += chr((ord(char) + shift))
+
+    return encrypted_sentence
+
+
+def simple_decrypt(sentence, shift):
+    """Decrypts the sentence using the shift"""
+    decrypted_sentence = ""
+    return decrypted_sentence
+
+simple_main()
+
