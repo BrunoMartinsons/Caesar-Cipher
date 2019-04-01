@@ -107,18 +107,18 @@ def simple_encrypt(sentence, shift):
     for char in sentence:
         if char.isalpha() == False:  # If char is not a letter
             encrypted_sentence += char
-
-        elif char.isupper() == True:
-            # if shift + char number > 90 need to make it loop back to start from 65
-            pass
-
-        elif char.islower() == True:
-            # if shift + char number > 90 need to make it loop back to start from 65
-            pass
-            
+        elif char.isupper() == True and (ord(char) + shift) > ord("Z"):
+            total_number = ord(char) + shift
+            while total_number > ord("Z"):
+                total_number -= 26
+            encrypted_sentence += chr(total_number)
+        elif char.islower() == True and (ord(char) + shift) > ord("z"):
+            total_number = ord(char) + shift
+            while total_number > ord("z"):
+                total_number -= 26
+            encrypted_sentence += chr(total_number)
         else:
             encrypted_sentence += chr((ord(char) + shift))
-
     return encrypted_sentence
 
 
