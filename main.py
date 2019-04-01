@@ -84,8 +84,10 @@ def decrypt(sentence, shifted_alphabet):
 # The above method is the long way to do it
 # Now I will use the ord() and chr() methods (ascii).
 # ord("A") = 65, chr(65) = "A"
+# Need to let users use negative shift values- Not started
 
 def simple_main():
+    """Asks the user if they want to encrypt or decrypt and using how many shifts"""
     user_choice = input("Would you like to (encrypt) or (decrypt?) a sentence?")
     if user_choice.lower() == "encrypt":
         shift = int(input("How many shifts do you want? "))
@@ -107,25 +109,42 @@ def simple_encrypt(sentence, shift):
     for char in sentence:
         if char.isalpha() == False:  # If char is not a letter
             encrypted_sentence += char
-        elif char.isupper() == True and (ord(char) + shift) > ord("Z"):
-            total_number = ord(char) + shift
-            while total_number > ord("Z"):
-                total_number -= 26
-            encrypted_sentence += chr(total_number)
-        elif char.islower() == True and (ord(char) + shift) > ord("z"):
-            total_number = ord(char) + shift
-            while total_number > ord("z"):
-                total_number -= 26
-            encrypted_sentence += chr(total_number)
+        elif char.isupper() == True and (ord(char) + shift) > ord("Z"):  # If capital and ascii + shift is bigger than ascii 90
+            total_number = ord(char) + shift  # Total char ascii and shift
+            while total_number > ord("Z"):  # While total is more than ascii 90
+                total_number -= 26  # Minus total number in alphabet (26)
+            encrypted_sentence += chr(total_number)  # Add replaced character
+        elif char.islower() == True and (ord(char) + shift) > ord("z"):  # If lowercase and ascii + shift is bigger than ascii 122
+            total_number = ord(char) + shift  # Total char ascii and shift
+            while total_number > ord("z"):  # While total is more than ascii 122
+                total_number -= 26  # Minus total number in alphabet (26)
+            encrypted_sentence += chr(total_number)  # Add replaced character
         else:
-            encrypted_sentence += chr((ord(char) + shift))
+            encrypted_sentence += chr((ord(char) + shift))  # ascii of char + shift and convert to new char
     return encrypted_sentence
 
 
 def simple_decrypt(sentence, shift):
     """Decrypts the sentence using the shift"""
     decrypted_sentence = ""
+    for char in sentence:
+        if char.isalpha() == False:  # If char is not a letter
+            decrypted_sentence += char
+        elif char.isupper() == True and (ord(char) - shift) < ord("A"):  # If capital and ascii + shift is smaller than  ascii 65
+            total_number = ord(char) - shift  # Total char ascii minus shift
+            while total_number < ord("A"):  # While total is less than ascii 65
+                total_number += 26  # Add total number in alphabet (26)
+            decrypted_sentence += chr(total_number)  # Add replaced character
+        elif char.islower() == True and (ord(char) - shift) < ord("a"):  # If lowercase and ascii + shift is less than  ascii 97
+            total_number = ord(char) - shift  # Total char ascii minus shift
+            while total_number < ord("a"):  # While total is less than ascii 97
+                total_number += 26  # Add total number in alphabet (26)
+            decrypted_sentence += chr(total_number)  # Add replaced character
+        else:
+            decrypted_sentence += chr((ord(char) - shift))  # ascii of char - shift and convert to new char
     return decrypted_sentence
 
+
 simple_main()
+
 
