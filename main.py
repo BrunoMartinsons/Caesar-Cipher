@@ -92,13 +92,19 @@ def simple_main():
     if user_choice.lower() == "encrypt":
         shift = int(input("How many shifts do you want? "))
         sentence = input("What sentence do you want to encrypt? ")
-        encrypted_sentence = simple_encrypt(sentence, shift)
+        if shift < 0:  # Need to make negative shifts work
+            encrypted_sentence = simple_decrypt(sentence, shift)
+        else:
+            encrypted_sentence = simple_encrypt(sentence, shift)
         print(encrypted_sentence)
         input("\nPress enter to close the program")
     elif user_choice.lower() == "decrypt":
         shift = int(input("How many shifts is the encrypted message? "))
         sentence = input("What sentence do you want to decrypt? ")
-        decrypted_sentence = simple_decrypt(sentence, shift)
+        if shift < 0:  # Need to make negative shifts work
+            decrypted_sentence = simple_encrypt(sentence, shift)
+        else:
+            decrypted_sentence = simple_decrypt(sentence, shift)
         print(decrypted_sentence)
         input("\nPress enter to close the program")
         
